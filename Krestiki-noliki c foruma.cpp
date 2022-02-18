@@ -36,7 +36,7 @@ main()
 
     // start the game
     //for(int o = 0; o < 9; o++)
-        while (i < 9){
+        while (i < 5){
 
         cout << "-" << Pole[0] << "-" << '|' << "-" << Pole[1] << "-" << '|' << "-" << Pole[2] << "-" << " |" <<  endl;
         cout << "-" << Pole[3] << "-" << '|' << "-" << Pole[4] << "-" << '|' << "-" << Pole[5] << "-" << " |" <<  endl;
