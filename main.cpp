@@ -7,17 +7,140 @@ int cellO;
 int scoreAI=0;
 int scoreHU=0;
 int index=0;
-void minimax(){
+
+void minimax(char igrpole[],bool igrok ){
     system("CLS");
-    cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
-    cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
-    cout << "-" << pole[6] << "-" << '|' << "-" << pole[7] << "-" << '|' << "-" << pole[8] << "-" << " |" <<  endl;
+    bool succAI=false, succHu=false;
+    int score1 =0, score2=0;
+    if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
+    {
+      succAI=true;
+      score1=+10;
+    }
+
+    else if (pole[3] == 'x' and pole[4] == 'x' and pole[5] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    else if (pole[6] == 'x' and pole[7] == 'x' and pole[8] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    else if (pole[0] == '0' and pole[1] == '0' and pole[2] == '0')
+    {
+        succHu=true;
+        score1=-10;
+
+    }
+    else if (pole[3] == '0' and pole[4] == '0' and pole[5] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[6] == '0' and pole[7] == '0' and pole[8] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    //DIAGONAL
+    else if (pole[0] == '0' and pole[4] == '0' and pole[8] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[2] == '0' and pole[4] == '0' and pole[6] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[0] == 'x' and pole[4] == 'x' and pole[8] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    else if (pole[2] == 'x' and pole[4] == 'x' and pole[6] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    //DIAGONAL
+
+    //VERTICAL
+    else if (pole[0] == '0' and pole[3] == '0' and pole[6] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[1] == '0' and pole[4] == '0' and pole[7] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[2] == '0' and pole[5] == '0' and pole[8] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+        //VERTICAL
+    else if (pole[0] == 'x' and pole[3] == 'x' and pole[6] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    else if (pole[1] == 'x' and pole[4] == 'x' and pole[7] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+    else if (pole[2] == 'x' and pole[5] == 'x' and pole[8] == 'x')
+    {
+        succAI=true;
+        score1=+10;
+    }
+
+
+    if (succAI==false and succHu==false)
+    {
+        //ходит компьютер при тру
+      if (igrok)
+     {
+          for (int i = 0; i<=8; i++)
+          if(pole[i]==' ')
+          {
+          pole[i]='x';
+          minimax(pole,igrok=false);
+          pole[i]=' ';
+          scoreAI=score1;
+          }
+         //здесь должен быть счетчик
+      }
+      if (!igrok)
+     {
+          for (int i = 0; i<=8; i++)
+          if(pole[i]==' ')
+          {
+          pole[i]='0';
+          minimax(pole,igrok=true);
+          pole[i]=' ';
+          scoreHU=score1;
+          }
+         //здесь должен быть счетчик
+      }
+    }
+
+
+
+
+
+
 }
 
 int main()
 {
     bool res=false,win=false,draw=false;
-    bool win0=false;
+    bool win0=false,igrokKomp=false,igrokSperma=false;
 
     int counter=0;
     cout << "------------" << "\n" << endl;
@@ -146,21 +269,19 @@ int main()
         }
         cout<<"It's your turn, human"<<endl;
         cout<<"So make a decision where place this -> O, add number from 1 to 9"<<endl;
+
         // //как-то сделать ход человека
 
         cin >> cellO;
         pole[cellO-1] = '0';
 
-       for (int i = 0; i<=8; i++)
-       {
-           if (pole[i]==' ')
-           {
-               pole[i]='x';
-               index=i;
-               minimax();
-           }
-       }
+      igrokKomp=true;
 
+               minimax(pole,igrokKomp);
+
+               cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
+               cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
+               cout << "-" << pole[6] << "-" << '|' << "-" << pole[7] << "-" << '|' << "-" << pole[8] << "-" << " |" <<  endl;
 
 
 
