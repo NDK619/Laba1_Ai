@@ -7,9 +7,108 @@ int cellO;
 int scoreAI=0;
 int scoreHU=0;
 int index=0;
-void proverka(char pole[],bool res,bool win, bool win0)
+bool res=false,win=false,draw=false;
+bool win0=false;
+int counter=0;
+bool proverka(char pole[],bool res,bool win, bool win0, bool draw)
 {
+    for (int i = 0; i<=8; i++)
+    {
+        if (pole[i]=='x' or pole[i]=='0' )
+            counter++;
+    }
+    if (counter==9)
+    {
+       return draw=true;
 
+    }
+    else counter=0;
+
+    if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
+    {
+      return(res=true,win=true);
+
+    }
+
+    else if (pole[3] == 'x' and pole[4] == 'x' and pole[5] == 'x')
+    {
+    return(res=true,win=true);
+
+    }
+    else if (pole[6] == 'x' and pole[7] == 'x' and pole[8] == 'x')
+    {
+   return(res=true,win=true);
+
+    }
+    else if (pole[0] == '0' and pole[1] == '0' and pole[2] == '0')
+    {
+    return(res=true,win0=true);
+
+    }
+    else if (pole[3] == '0' and pole[4] == '0' and pole[5] == '0')
+    {
+  return(res=true,win0=true);
+
+    }
+    else if (pole[6] == '0' and pole[7] == '0' and pole[8] == '0')
+    {
+    return(res=true,win0=true);
+
+    }
+    //DIAGONAL
+    else if (pole[0] == '0' and pole[4] == '0' and pole[8] == '0')
+    {
+  return(res=true,win0=true);
+
+    }
+    else if (pole[2] == '0' and pole[4] == '0' and pole[6] == '0')
+    {
+    return(res=true,win0=true);
+
+    }
+    else if (pole[0] == 'x' and pole[4] == 'x' and pole[8] == 'x')
+    {
+         return(res=true,win=true);
+
+    }
+    else if (pole[2] == 'x' and pole[4] == 'x' and pole[6] == 'x')
+    {
+       return(res=true,win=true);
+    }
+    //DIAGONAL
+
+    //VERTICAL
+    else if (pole[0] == '0' and pole[3] == '0' and pole[6] == '0')
+    {
+       return(res=true,win0=true);
+
+    }
+    else if (pole[1] == '0' and pole[4] == '0' and pole[7] == '0')
+    {
+     return(res=true,win0=true);
+
+    }
+    else if (pole[2] == '0' and pole[5] == '0' and pole[8] == '0')
+    {
+  return(res=true,win0=true);
+
+    }
+        //VERTICAL
+    else if (pole[0] == 'x' and pole[3] == 'x' and pole[6] == 'x')
+    {
+     return(res=true,win=true);
+
+    }
+    else if (pole[1] == 'x' and pole[4] == 'x' and pole[7] == 'x')
+    {
+         return(res=true,win=true);
+
+    }
+    else if (pole[2] == 'x' and pole[5] == 'x' and pole[8] == 'x')
+    {
+         return(res=true,win=true);
+
+    }
 }
 void minimax(char pole[],bool igrok ){
     system("CLS");
@@ -142,10 +241,9 @@ void minimax(char pole[],bool igrok ){
 
 int main()
 {
-    bool res=false,win=false,draw=false;
-    bool win0=false,igrokKomp=false,igrokSperma=false;
+  bool igrokKomp=false;
 
-    int counter=0;
+
     cout << "------------" << "\n" << endl;
     cout << "PLAYING FIELD:" << endl;
     cout << "-" << 1 << "-" << '|' << "-" << 2 << "-" << '|' << "-" << 3 << "-" << " |" << endl;
@@ -156,120 +254,9 @@ int main()
 
     for (;;){
         // Делаем проверку перед тем как сделать ход, чтобы не сделать лишний ход на всякий случай
-        for (int i = 0; i<=8; i++)
-        {
-            if (pole[i]=='x' or pole[i]=='0' )
-                counter++;
-        }
-        if (counter==9)
-        {
-            draw=true;
-            break;
-        }
-        else counter=0;
-
-        if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-
-        else if (pole[3] == 'x' and pole[4] == 'x' and pole[5] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        else if (pole[6] == 'x' and pole[7] == 'x' and pole[8] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        else if (pole[0] == '0' and pole[1] == '0' and pole[2] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[3] == '0' and pole[4] == '0' and pole[5] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[6] == '0' and pole[7] == '0' and pole[8] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        //DIAGONAL
-        else if (pole[0] == '0' and pole[4] == '0' and pole[8] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[2] == '0' and pole[4] == '0' and pole[6] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[0] == 'x' and pole[4] == 'x' and pole[8] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        else if (pole[2] == 'x' and pole[4] == 'x' and pole[6] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        //DIAGONAL
-
-        //VERTICAL
-        else if (pole[0] == '0' and pole[3] == '0' and pole[6] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[1] == '0' and pole[4] == '0' and pole[7] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-        else if (pole[2] == '0' and pole[5] == '0' and pole[8] == '0')
-        {
-            res=true;
-            win0=true;
-            break;
-        }
-            //VERTICAL
-        else if (pole[0] == 'x' and pole[3] == 'x' and pole[6] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        else if (pole[1] == 'x' and pole[4] == 'x' and pole[7] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
-        else if (pole[2] == 'x' and pole[5] == 'x' and pole[8] == 'x')
-        {
-            res=true;
-            win=true;
-            break;
-        }
+      proverka(pole, res,win,  win0, draw);
+      if(res==true or win==true or   win0==true or draw==true)
+          break;
         cout<<"It's your turn, human"<<endl;
         cout<<"So make a decision where place this -> O, add number from 1 to 9"<<endl;
 
