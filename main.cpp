@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <locale.h>
 using namespace std;
 char pole[9]={' ',' ',' ',' ',' ',' ',' ',' ',' ',};
 int cell;
@@ -110,8 +110,9 @@ bool proverka(char pole[],bool res,bool win, bool win0, bool draw)
 
     }
 }
-void minimax(char pole[],bool igrok ){
+int minimax(char pole[],bool igrok ){
     system("CLS");
+    cout<<"начался минимакс"<<endl;
     bool succAI=false, succHu=false;
     int score1 =0;
     if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
@@ -202,9 +203,30 @@ void minimax(char pole[],bool igrok ){
         score1=+10;
     }
 
+ if(succAI==true )
+ {
+return(scoreAI=10);
+ }
+ if(succHu==true )
+ {
+return(scoreAI=-10);
+ }
+
+ for (int i = 0; i<=8; i++)
+ {
+     if (pole[i]=='x' or pole[i]=='0' )
+         counter++;
+ }
+ if (counter==9)
+ {
+    return (scoreAI=0);
+
+ }
+ else counter=0;
 
     if (succAI==false and succHu==false)
     {
+        cout<<"ходит комп"<<endl;
         //ходит компьютер при тру
       if (igrok)
      {
@@ -214,21 +236,24 @@ void minimax(char pole[],bool igrok ){
           pole[i]='x';
           minimax(pole,igrok=false);
           pole[i]=' ';
-          scoreAI=score1;
+          scoreAI=+score1;
           }
          //здесь должен быть счетчик
+          return (scoreAI);
       }
       if (!igrok)
      {
+          cout<<"компьютер ходит вместо человека"<<endl;
           for (int i = 0; i<=8; i++)
           if(pole[i]==' ')
           {
           pole[i]='0';
           minimax(pole,igrok=true);
           pole[i]=' ';
-          scoreHU=score1;
+          scoreAI=+score1;
           }
          //здесь должен быть счетчик
+              return (scoreAI);
       }
     }
 
@@ -241,8 +266,9 @@ void minimax(char pole[],bool igrok ){
 
 int main()
 {
+     setlocale(LC_ALL, "Russian");
   bool igrokKomp=false;
-
+  int maxscore=0;
 
     cout << "------------" << "\n" << endl;
     cout << "PLAYING FIELD:" << endl;
@@ -253,6 +279,7 @@ int main()
 
 
     for (;;){
+        cout<<"основной цикл начался"<<endl;
         // Делаем проверку перед тем как сделать ход, чтобы не сделать лишний ход на всякий случай
       proverka(pole, res,win,  win0, draw);
       if(res==true or win==true or   win0==true or draw==true)
@@ -265,23 +292,34 @@ int main()
         cin >> cellO;
         pole[cellO-1] = '0';
 
-               igrokKomp=false;
+               igrokKomp=true;
                for (int i = 0; i<=8; i++)
                {
+                   cout<<"начался цикл перед вызовом минимакс"<<endl;
                 if (pole[i]==' ')  {
                     pole[i]='x';
                     index=i;
                minimax(pole,igrokKomp);
                  pole[i]=' ';
+                 if(scoreAI>=maxscore)
+                {
+                     maxscore=scoreAI;
+                     index=i;
+                 }
+
+
                 }
                    }
                pole[index]='x';
-
-
-
                cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
                cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
                cout << "-" << pole[6] << "-" << '|' << "-" << pole[7] << "-" << '|' << "-" << pole[8] << "-" << " |" <<  endl;
+               proverka(pole, res,win,  win0, draw);
+               if(res==true or win==true or   win0==true or draw==true)
+                   break;
+
+
+
 
 
 
