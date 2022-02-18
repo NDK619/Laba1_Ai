@@ -112,7 +112,7 @@ bool proverka(char pole[],bool res,bool win, bool win0, bool draw)
 }
 int minimax(char pole[],bool igrok ){
     system("CLS");
-    cout<<"начался минимакс"<<endl;
+    cout<<"minimax started"<<endl;
     bool succAI=false, succHu=false;
     int score1 =0;
     if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
@@ -226,7 +226,7 @@ return(scoreAI=-10);
 
     if (succAI==false and succHu==false)
     {
-        cout<<"ходит комп"<<endl;
+        cout<<"Computer's turn"<<endl;
         //ходит компьютер при тру
       if (igrok)
      {
@@ -243,7 +243,7 @@ return(scoreAI=-10);
       }
       if (!igrok)
      {
-          cout<<"компьютер ходит вместо человека"<<endl;
+          cout<<"Human turn by computer"<<endl;
           for (int i = 0; i<=8; i++)
           if(pole[i]==' ')
           {
@@ -255,6 +255,7 @@ return(scoreAI=-10);
          //здесь должен быть счетчик
               return (scoreAI);
       }
+
     }
 
 
@@ -279,7 +280,7 @@ int main()
 
 
     for (;;){
-        cout<<"основной цикл начался"<<endl;
+        cout<<"main function started"<<endl;
         // Делаем проверку перед тем как сделать ход, чтобы не сделать лишний ход на всякий случай
       proverka(pole, res,win,  win0, draw);
       if(res==true or win==true or   win0==true or draw==true)
@@ -287,15 +288,15 @@ int main()
         cout<<"It's your turn, human"<<endl;
         cout<<"So make a decision where place this -> O, add number from 1 to 9"<<endl;
 
-        // //как-то сделать ход человека
+         // ход человека
 
         cin >> cellO;
         pole[cellO-1] = '0';
 
-               igrokKomp=true;
+
                for (int i = 0; i<=8; i++)
                {
-                   cout<<"начался цикл перед вызовом минимакс"<<endl;
+                   cout<<"loop that started before minimax call"<<endl;
                 if (pole[i]==' ')  {
                     pole[i]='x';
                     index=i;
