@@ -7,11 +7,14 @@ int cellO;
 int scoreAI=0;
 int scoreHU=0;
 int index=0;
+void proverka(char pole[],bool res,bool win, bool win0)
+{
 
-void minimax(char igrpole[],bool igrok ){
+}
+void minimax(char pole[],bool igrok ){
     system("CLS");
     bool succAI=false, succHu=false;
-    int score1 =0, score2=0;
+    int score1 =0;
     if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
     {
       succAI=true;
@@ -275,9 +278,19 @@ int main()
         cin >> cellO;
         pole[cellO-1] = '0';
 
-      igrokKomp=true;
-
+               igrokKomp=false;
+               for (int i = 0; i<=8; i++)
+               {
+                if (pole[i]==' ')  {
+                    pole[i]='x';
+                    index=i;
                minimax(pole,igrokKomp);
+                 pole[i]=' ';
+                }
+                   }
+               pole[index]='x';
+
+
 
                cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
                cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
