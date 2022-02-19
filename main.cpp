@@ -251,7 +251,7 @@ int minimax(char pole[],bool igrok ){
     }
     else counter=0;
 
-    if (succAI==false and succHu==false)
+    if ((succAI==false and succHu==false) or scoreAI==0)
     {
         cout<<"Computer's turn"<<endl;
         //ходит компьютер при тру
@@ -311,6 +311,7 @@ int main()
 
 
     for (;;){
+
         cout<<"main function started"<<endl;
         // Делаем проверку перед тем как сделать ход, чтобы не сделать лишний ход на всякий случай
         //      proverka(pole, win,  win0, draw);
@@ -451,15 +452,16 @@ int main()
                     maxscore=scoreAI;
                     index=i;
                 }
-                succAI=false;
-                score1=0;
-                succHu=false;
+                else if (scoreAI==0)index=i;
 
             }
+            succAI=false;
+            scoreAI=0;
+            succHu=false;
         }
         pole[index]='x';
-        maxscore=0;
-        index=0;
+
+
         cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
         cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
         cout << "-" << pole[6] << "-" << '|' << "-" << pole[7] << "-" << '|' << "-" << pole[8] << "-" << " |" <<  endl;
