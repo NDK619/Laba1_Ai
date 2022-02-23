@@ -20,7 +20,8 @@ main()
 
     int i = 0;
     char Pole[9] = {'-','-','-','-','-','-','-','-','-',}; //создаем игровое поле
-
+    bool win0 = false;
+    bool winX = false;
     int cell;
     int cellO;
 
@@ -35,8 +36,30 @@ main()
 
 
     // start the game
+<<<<<<< Updated upstream
     //for(int o = 0; o < 9; o++)
         while (i < 5){
+=======
+>>>>>>> Stashed changes
+
+    //первым ходит „еловек( 0 ), затем играет комп
+
+
+        while (i < 5){
+
+        cout << "¬ведите номер клетки, куда ходить 0: ";
+        cin >> cellO;
+        Pole[cellO-1] = '0';
+
+        cout << "-" << Pole[0] << "-" << '|' << "-" << Pole[1] << "-" << '|' << "-" << Pole[2] << "-" << " |" <<  endl;
+        cout << "-" << Pole[3] << "-" << '|' << "-" << Pole[4] << "-" << '|' << "-" << Pole[5] << "-" << " |" <<  endl;
+        cout << "-" << Pole[6] << "-" << '|' << "-" << Pole[7] << "-" << '|' << "-" << Pole[8] << "-" << " |" <<  "\n" << endl;
+
+        i = i + 1;
+
+        if (i == 5){ break; }
+        //char a = CheckLine(Pole[9]);
+
 
         cout << "-" << Pole[0] << "-" << '|' << "-" << Pole[1] << "-" << '|' << "-" << Pole[2] << "-" << " |" <<  endl;
         cout << "-" << Pole[3] << "-" << '|' << "-" << Pole[4] << "-" << '|' << "-" << Pole[5] << "-" << " |" <<  endl;
@@ -53,19 +76,10 @@ main()
 
 
 
-        cout << "¬ведите номер клетки, куда ходить 0: ";
-        cin >> cellO;
-        Pole[cellO-1] = '0';
 
-        cout << "-" << Pole[0] << "-" << '|' << "-" << Pole[1] << "-" << '|' << "-" << Pole[2] << "-" << " |" <<  endl;
-        cout << "-" << Pole[3] << "-" << '|' << "-" << Pole[4] << "-" << '|' << "-" << Pole[5] << "-" << " |" <<  endl;
-        cout << "-" << Pole[6] << "-" << '|' << "-" << Pole[7] << "-" << '|' << "-" << Pole[8] << "-" << " |" <<  "\n" << endl;
+        //проверки на победу
 
-        i = i + 1;
-        //char a = CheckLine(Pole[9]);
-
-
-
+        //горизонтальные
         if (Pole[0] == 'x' and Pole[1] == 'x' and Pole[2] == 'x') //победа X при xxx
         {
             cout << "Hi, X - winner!(1 2 3)";
@@ -97,6 +111,30 @@ main()
             cout << "Hi, 0 - winner!(7 8 9)";
             break;
         }
+        //ƒиагонали
+    else if (Pole[0] == '0' and Pole[4] == '0' and Pole[8] == '0')
+    {
+        win0=true;
+
+
+    }
+    else if (Pole[2] == '0' and Pole[4] == '0' and Pole[6] == '0')
+    {
+        win0=true;
+
+
+    }
+    else if (Pole[0] == 'x' and Pole[4] == 'x' and Pole[8] == 'x')
+    {
+        winX=true;
+
+
+    }
+    else if (Pole[2] == 'x' and Pole[4] == 'x' and Pole[6] == 'x')
+    {
+        winX=true;
+
+    }
 
 
         system("PAUSE");
