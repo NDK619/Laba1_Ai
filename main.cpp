@@ -263,9 +263,9 @@ int minimax(char pole[],bool igrok ){
                     pole[i]='x';
                     minimax(pole,igrok=false);
                     pole[i]=' ';
-                    if (score1>=scoreAI){
+                    if (score1>scoreAI){
                         scoreAI=score1;
-
+                     return (scoreAI);
                     }
                 }
             //здесь должен быть счетчик
@@ -280,9 +280,9 @@ int minimax(char pole[],bool igrok ){
                     pole[i]='0';
                     minimax(pole,igrok=true);
                     pole[i]=' ';
-                    if (score1<=scoreAI){
+                    if (score1<scoreAI){
                         scoreAI=score1;
-
+                          return (scoreAI);
                     }
                 }
             //здесь должен быть счетчик
@@ -317,7 +317,13 @@ int main()
         //      proverka(pole, win,  win0, draw);
         //      if( win==true or   win0==true or draw==true)
         //          break;
+        cout<<"It's your turn, human"<<endl;
+        cout<<"So make a decision where place this -> O, add number from 1 to 9"<<endl;
 
+        // ход человека
+
+        cin >> cellO;
+        pole[cellO-1] = '0';
 
         if (pole[0] == 'x' and pole[1] == 'x' and pole[2] == 'x')
         {
@@ -429,13 +435,7 @@ int main()
 
         }
         else counter=0;
-        cout<<"It's your turn, human"<<endl;
-        cout<<"So make a decision where place this -> O, add number from 1 to 9"<<endl;
 
-        // ход человека
-
-        cin >> cellO;
-        pole[cellO-1] = '0';
 
 
         for (int i = 0; i<=8; i++)
@@ -443,25 +443,26 @@ int main()
             cout<<"loop that started before minimax call"<<endl;
             if (pole[i]==' ')  {
                 pole[i]='x';
-
+//                index=i;
                 minimax(pole,igrokKomp);
                 cout<<"Main program after called minimax"<<endl;
                 pole[i]=' ';
-                if(scoreAI>=maxscore)
+                if(scoreAI>maxscore)
                 {
                     maxscore=scoreAI;
                     index=i;
                 }
-                else if (scoreAI==0)index=i;
+                 else if((scoreAI==0 or scoreAI==-10) and maxscore!=10) index=i;
 
             }
+
             succAI=false;
             scoreAI=0;
             succHu=false;
         }
         pole[index]='x';
-
-
+        igrokKomp=false;
+        maxscore=0;
         cout << "-" << pole[0] << "-" << '|' << "-" << pole[1] << "-" << '|' << "-" << pole[2] << "-" << " |" <<  endl;
         cout << "-" << pole[3] << "-" << '|' << "-" << pole[4] << "-" << '|' << "-" << pole[5] << "-" << " |" <<  endl;
         cout << "-" << pole[6] << "-" << '|' << "-" << pole[7] << "-" << '|' << "-" << pole[8] << "-" << " |" <<  endl;
