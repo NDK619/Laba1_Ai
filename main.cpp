@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <locale.h>
 using namespace std;
@@ -175,6 +176,17 @@ int minimax(char pole[],bool igrok ){
         score1=-10;
     }
     //DIAGONAL
+    else if (pole[0] == 'x' and pole[4] == 'x' and pole[8] == 'x')
+    {
+        succAI=true;
+        score1=10;
+    }
+
+    else if (pole[2] == 'x' and pole[4] == 'x' and pole[6] == 'x')
+    {
+        succAI=true;
+        score1=10;
+    }
     else if (pole[0] == '0' and pole[4] == '0' and pole[8] == '0')
     {
         succHu=true;
@@ -185,34 +197,9 @@ int minimax(char pole[],bool igrok ){
         succHu=true;
         score1=-10;
     }
-    else if (pole[0] == 'x' and pole[4] == 'x' and pole[8] == 'x')
-    {
-        succAI=true;
-        score1=10;
-    }
-    else if (pole[2] == 'x' and pole[4] == 'x' and pole[6] == 'x')
-    {
-        succAI=true;
-        score1=10;
-    }
+
     //DIAGONAL
 
-    //VERTICAL
-    else if (pole[0] == '0' and pole[3] == '0' and pole[6] == '0')
-    {
-        succHu=true;
-        score1=-10;
-    }
-    else if (pole[1] == '0' and pole[4] == '0' and pole[7] == '0')
-    {
-        succHu=true;
-        score1=-10;
-    }
-    else if (pole[2] == '0' and pole[5] == '0' and pole[8] == '0')
-    {
-        succHu=true;
-        score1=-10;
-    }
     //VERTICAL
     else if (pole[0] == 'x' and pole[3] == 'x' and pole[6] == 'x')
     {
@@ -230,11 +217,29 @@ int minimax(char pole[],bool igrok ){
         score1=10;
     }
 
-    if(succAI==true )
+    else if (pole[0] == '0' and pole[3] == '0' and pole[6] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[1] == '0' and pole[4] == '0' and pole[7] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    else if (pole[2] == '0' and pole[5] == '0' and pole[8] == '0')
+    {
+        succHu=true;
+        score1=-10;
+    }
+    //VERTICAL
+
+
+    if(succAI==true and succHu != true)
     {
         return(scoreAI=10);
     }
-    if(succHu==true )
+    if(succHu==true and succAI != true)
     {
         return(scoreAI=-10);
     }
@@ -444,21 +449,29 @@ int main()
             if (pole[i]==' ')  {
                 pole[i]='x';
 //                index=i;
-                minimax(pole,igrokKomp);
+                int score = minimax(pole,igrokKomp);
                 cout<<"Main program after called minimax"<<endl;
+                cout<<score<<"    scoreAI"<<endl;
                 pole[i]=' ';
-                if(scoreAI>maxscore)
+                if(score==0 or score ==-10)
                 {
-                    maxscore=scoreAI;
-                    index=i;
+                    score = minimax(pole+1,igrokKomp);
                 }
-                 else if((scoreAI==0 or scoreAI==-10) and maxscore!=10) index=i;
+                if(score>=maxscore)
+                {
+                    maxscore=score;
+                    index=i;
+
+                }
+                 else if((scoreAI==0 or scoreAI==-10) and maxscore!=10){ cout<<"YA otsosal,  Ya sdaus`" << endl; index=i;}
+cout<<maxscore<<"  maxscore"<<endl;
 
             }
 
             succAI=false;
             scoreAI=0;
             succHu=false;
+            if (maxscore==10)break;
         }
         pole[index]='x';
         igrokKomp=false;
